@@ -32,7 +32,6 @@ const recordSchema = new Schema({
 
                 validated_map.set(val, new model_class(fdata));
             }
-            console.log("PROCEEDED !!")
             this.__fields__ = validated_map;
             return true;
         },
