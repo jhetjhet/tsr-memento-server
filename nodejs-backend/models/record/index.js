@@ -70,4 +70,4 @@ recordSchema.method('removeFields', async function(fields, save=true){
 
 });
 
-exports.Record = mongoose.model('RecordSchema', recordSchema);
+module.exports = mongoose.model('RecordSchema', recordSchema);
