@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-// const { uuid } = require('uuidv4');
 const { v4 } = require('uuid');
 
 const fields = require('../fields');
-// const { fieldSchema } = require('../fields/feildsschemas');
 
 const FIELDS = fields.FIELD_MODELS;
 
