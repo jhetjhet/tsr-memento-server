@@ -50,4 +50,26 @@ recordSchema.virtual('fields').
         });
     });
 
+recordSchema.method('updateFields', async function(fields, save=true){
+
+    Object.keys(fields).forEach((k) => {
+        Object.assign(this.__fields__.get(k), fields[k]);
+    });
+
+    if(save)
+        await this.save();
+
+});
+
+recordSchema.method('removeFields', async function(fields, save=true){
+
+    fields.forEach((field) => {
+        this.__fields__.delete(field);
+    });
+
+    if(save)
+        await this.save();
+
+});
+
 exports.Record = mongoose.model('RecordSchema', recordSchema);
