@@ -1,6 +1,5 @@
 
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
 const fieldSchemas = require('./feildsschemas');
 
 const FIELDS_SCHEMAS = Object.keys(fieldSchemas);
@@ -27,11 +26,7 @@ const fieldSchema = new mongoose.Schema({
         default: false,
     },
 }, {
-    autoCreate: false,
-    id: false,
-    _id: null,
-    // strict: false,
-    // discriminatorKey: 'kind',
+    discriminatorKey: 'field_type',
 });
 
 const FieldSchema = mongoose.model('FieldSchema', fieldSchema);
