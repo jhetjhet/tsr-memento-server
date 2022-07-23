@@ -17,7 +17,25 @@ const numberSchema = new Schema({
     },
 });
 
+const booleanSchema = new Schema({
+    type: {
+        type: String,
+        immutable: true,
+        default: 'Boolean',
+    },
+});
+
+const dateSchema = new Schema({
+    type: {
+        type: String,
+        immutable: true,
+        default: 'Date',
+    },
+});
+
 module.exports = {
     stringSchema,
     numberSchema,
+    booleanSchema,
+    dateSchema,
 }
