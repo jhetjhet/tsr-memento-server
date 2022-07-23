@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-const fieldSchemas = require('./feildsschemas');
+const fieldSchemas = require('./fieldSchemas');
 
 const FIELDS_SCHEMAS = Object.keys(fieldSchemas);
 const FIELD_MODELS = FIELDS_SCHEMAS.map((fs) => fs[0].toUpperCase() + fs.substring(1));

@@ -1,9 +1,9 @@
-const Record = require('../models/record');
+const RecordFormatSchema = require('../models/record/recordFormatSchema');
 
 const recordDocument = async (req, res, next) => {
     const { record_id } = req.params;
     try {
-        const record = await Record.findById(record_id);
+        const record = await RecordFormatSchema.findById(record_id);
         if(record){
             req.record_doc = record;
             return next();
@@ -18,7 +18,7 @@ const recordDocument = async (req, res, next) => {
 const create = async (req, res, next) => {
     try {
         const record = Record(req.body);
-        await record.save();
+        await RecordFormatSchema.save();
         return res.json(record);
     } catch (error) {
         return next(error);
@@ -27,7 +27,7 @@ const create = async (req, res, next) => {
 
 const lists = async (req, res, next) => {
     try {
-        const records = await Record.find();
+        const records = await RecordFormatSchema.find();
         return res.json(records);
     } catch (error) {
         return next(error);
@@ -47,7 +47,7 @@ const update = [
         const record = req.record_doc;
         try {
             Object.assign(record, req.body);
-            await record.save();
+            await RecordFormatSchema.save();
             return res.json(record);
         } catch (error) {
             return next(error);
@@ -58,7 +58,7 @@ const update = [
 const _delete = async (req, res, next) => {
     const { record_id } = req.params;
     try {
-        await Record.deleteOne({_id: record_id});
+        await RecordFormatSchema.deleteOne({_id: record_id});
         return res.status(201).end();
     } catch (error) {
         return next(error);
