@@ -17,8 +17,8 @@ const recordDocument = async (req, res, next) => {
 
 const create = async (req, res, next) => {
     try {
-        const record = Record(req.body);
-        await RecordFormatSchema.save();
+        const record = RecordFormatSchema(req.body);
+        await record.save();
         return res.json(record);
     } catch (error) {
         return next(error);
