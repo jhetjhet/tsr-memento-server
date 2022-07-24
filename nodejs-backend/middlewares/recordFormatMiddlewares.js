@@ -1,11 +1,11 @@
 const RecordFormatSchema = require('../models/record/recordFormatSchema');
 
-const recordDocument = async (req, res, next) => {
+const recordFormatDocument = async (req, res, next) => {
     const { record_id } = req.params;
     try {
         const record = await RecordFormatSchema.findById(record_id);
         if(record){
-            req.record_doc = record;
+            req.recform_doc = record;
             return next();
         }
 
@@ -35,16 +35,16 @@ const lists = async (req, res, next) => {
 }
 
 const retrieve = [
-    recordDocument,
+    recordFormatDocument,
     (req, res) => {
-        res.json(req.record_doc);
+        res.json(req.recform_doc);
     },
 ];
 
 const update = [
-    recordDocument,
+    recordFormatDocument,
     async (req, res, next) => {
-        const record = req.record_doc;
+        const record = req.recform_doc;
         try {
             Object.assign(record, req.body);
             await RecordFormatSchema.save();
@@ -66,7 +66,7 @@ const _delete = async (req, res, next) => {
 }
 
 module.exports = {
-    recordDocument,
+    recordFormatDocument,
     create,
     lists,
     retrieve,

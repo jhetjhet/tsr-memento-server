@@ -8,7 +8,7 @@ const create = [
     middlewares.validationError,
     async (req, res, next) => {
         const data = req.body;
-        const record = req.record_doc;
+        const record = req.recform_doc;
         try {
             const field = fieldsModel[data.field_type](data);
             await field.validate();
@@ -25,7 +25,7 @@ const create = [
 
 const update = async (req, res, next) => {
     const { field_id } = req.params;
-    const record = req.record_doc;
+    const record = req.recform_doc;
     const data = req.body;
 
     try {
@@ -43,7 +43,7 @@ const update = async (req, res, next) => {
 }
 
 const lists = async (req, res, next) => {
-    const record = req.record_doc;
+    const record = req.recform_doc;
     try {
         await record.populate('fields');
         return res.json(record.fields);
