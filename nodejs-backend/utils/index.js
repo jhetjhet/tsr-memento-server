@@ -31,6 +31,26 @@ function recordFormatFieldsToSchemaStructure(recform_fields){
     return schemaStruct;
 }
 
+/**
+ * Remove all the properties in obj define in keyToKeep an array that contains key
+ * to keep or exclude from removing.
+ * 
+ * @param {Object} obj 
+ * @param {Array} keyToKeep 
+ * @returns 
+ * 
+ * returns a new object contains all the properties define in the keyToKeep array.
+ */
+function cleanObj(obj, keyToKeep){
+    let cObj = {};
+    keyToKeep.forEach((k) => {
+        if(obj[k] !== undefined)
+            cObj[k] = obj[k];
+    });
+    return cObj;
+}
+
 module.exports = {
     recordFormatFieldsToSchemaStructure,
+    cleanObj,
 }
