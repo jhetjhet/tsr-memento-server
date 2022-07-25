@@ -1,9 +1,9 @@
 const RecordFormatSchema = require('../models/record/recordFormatSchema');
 
 const recordFormatDocument = async (req, res, next) => {
-    const { record_id } = req.params;
+    const { schema_id } = req.params;
     try {
-        const record = await RecordFormatSchema.findById(record_id);
+        const record = await RecordFormatSchema.findById(schema_id);
         if(record){
             req.recform_doc = record;
             return next();
@@ -56,9 +56,9 @@ const update = [
 ]
 
 const _delete = async (req, res, next) => {
-    const { record_id } = req.params;
+    const { schema_id } = req.params;
     try {
-        await RecordFormatSchema.deleteOne({_id: record_id});
+        await RecordFormatSchema.deleteOne({_id: schema_id});
         return res.status(201).end();
     } catch (error) {
         return next(error);
