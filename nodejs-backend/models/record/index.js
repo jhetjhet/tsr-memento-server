@@ -14,12 +14,12 @@ const recordSchema = new Schema({
 
 const RecordSchema = mongoose.model('RecordSchema', recordSchema);
 
-async function validateByRecordSchema(schema, data){
+async function validateByRecordSchema(schema, data, pathsToValidate=null){
     if(!(schema instanceof Schema)){
         throw new Error('Object is not an instance of Schema');
     }
     RecordSchema.schema = schema;
-    await RecordSchema.validate(data);
+    await RecordSchema.validate(data, pathsToValidate);
 }
 
 module.exports = {
