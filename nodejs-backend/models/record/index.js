@@ -9,7 +9,7 @@ const recordSchema = new Schema({
         immutable: true,
     },
 }, {
-    collation: 'records',
+    collection: 'records',
 });
 
 const RecordSchema = mongoose.model('RecordSchema', recordSchema);
