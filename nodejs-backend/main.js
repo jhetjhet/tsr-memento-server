@@ -2,12 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const recordRoutes = require('./routes/recordRoutes');
+const recordFormatRoutes = require('./routes/recordFormatRoutes');
 const middlewares = require('./middlewares');
 
 const apiRoute = express.Router();
 
-apiRoute.use(recordRoutes);
+apiRoute.use(recordFormatRoutes);
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -24,5 +24,5 @@ mongoose.connect(process.env.MONGO_DB_CONN, async (err) => {
     await app.listen(PORT);
 
     console.log(`Server running in port ${PORT}...`);
-    
+
 });
