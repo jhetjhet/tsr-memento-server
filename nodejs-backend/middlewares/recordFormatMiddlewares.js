@@ -27,7 +27,7 @@ const create = async (req, res, next) => {
 
 const lists = async (req, res, next) => {
     try {
-        const records = await RecordFormatSchema.find();
+        const records = await RecordFormatSchema.find().lean();
         return res.json(records);
     } catch (error) {
         return next(error);
