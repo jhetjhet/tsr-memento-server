@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
+const morgan = require('morgan');
 
 const recordRoutes = require('./routes/recordRoutes');
 const middlewares = require('./middlewares');
@@ -14,6 +15,7 @@ apiRoute.use(recordRoutes);
 app.use(cors()); // cors policy
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(morgan('combined'));
 
 app.use('/api/', apiRoute);
 app.use(middlewares.errorHandler);
