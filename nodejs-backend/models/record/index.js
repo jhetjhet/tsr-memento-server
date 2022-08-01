@@ -2,27 +2,19 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const recordSchema = new Schema({
-    _schema: {
-        type: Schema.Types.ObjectId,
-        ref: 'RecordFormatSchema',
+    to: {
+        type: String,
         required: true,
         immutable: true,
+    }, // django id (uuidv4)
+    name: {
+        type: String,
+        required: true,
     },
-}, {
-    collection: 'records',
+    fields: [{
+        type: Schema.Types.ObjectId,
+        ref: 'FieldSchema'
+    }],
 });
 
-const RecordSchema = mongoose.model('RecordSchema', recordSchema);
-
-async function validateByRecordSchema(schema, data, pathsToValidate=null){
-    if(!(schema instanceof Schema)){
-        throw new Error('Object is not an instance of Schema');
-    }
-    RecordSchema.schema = schema;
-    await RecordSchema.validate(data, pathsToValidate);
-}
-
-module.exports = {
-    validateByRecordSchema,
-    RecordSchema,
-}
+module.exports = mongoose.model('RecordSchema', recordSchema);

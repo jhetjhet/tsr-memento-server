@@ -2,12 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const recordFormatRoutes = require('./routes/recordFormatRoutes');
+const recordRoutes = require('./routes/recordRoutes');
 const middlewares = require('./middlewares');
 
 const apiRoute = express.Router();
 
-apiRoute.use(recordFormatRoutes);
+apiRoute.use(recordRoutes);
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded

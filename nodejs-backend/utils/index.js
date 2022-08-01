@@ -16,7 +16,7 @@
  * 
  * it is used for defining the structure for a schema
  */
-function recordFormatFieldsToSchemaStructure(recform_fields){
+function recordFieldsToEntrySchema(recform_fields){
     const schemaStruct = {};
 
     recform_fields.forEach(element => {
@@ -51,6 +51,6 @@ function cleanObj(obj, keyToKeep){
 }
 
 module.exports = {
-    recordFormatFieldsToSchemaStructure,
+    recordFieldsToEntrySchema,
     cleanObj,
 }
