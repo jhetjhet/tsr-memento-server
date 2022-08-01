@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors');
+
 const recordRoutes = require('./routes/recordRoutes');
 const middlewares = require('./middlewares');
 
@@ -9,6 +11,7 @@ const apiRoute = express.Router();
 
 apiRoute.use(recordRoutes);
 
+app.use(cors()); // cors policy
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
