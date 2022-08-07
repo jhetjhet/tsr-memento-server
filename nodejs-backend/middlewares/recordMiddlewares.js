@@ -47,7 +47,7 @@ const update = [
         const record = req.record_doc;
         try {
             Object.assign(record, req.body);
-            await RecordSchema.save();
+            await record.save();
             return res.json(record);
         } catch (error) {
             return next(error);
