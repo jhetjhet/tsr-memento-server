@@ -56,9 +56,9 @@ const update = [
 ]
 
 const _delete = async (req, res, next) => {
-    const { schema_id } = req.params;
+    const { record_id } = req.params;
     try {
-        await RecordSchema.deleteOne({_id: schema_id});
+        await RecordSchema.deleteOne({_id: record_id});
         return res.status(201).end();
     } catch (error) {
         return next(error);
