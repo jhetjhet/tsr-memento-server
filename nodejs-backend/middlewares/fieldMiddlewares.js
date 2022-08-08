@@ -1,5 +1,6 @@
 const { body } = require('express-validator');
 const fieldsModel = require('../models/fields');
+const RecordSchema = require('../models/record');
 const middlewares = require('./');
 
 const create = [
@@ -68,8 +69,14 @@ const retrieve = async (req, res, next) => {
 
 const _delete = async (req, res, next) => {
     const { field_id } = req.params;
+    const record = req.record_doc;
 
     try {
+        await RecordSchema.updateOne({_id: record._id}, {
+            $pullAll: {
+                fields: [field_id],
+            }
+        });
         const result = await fieldsModel.FieldSchema.deleteOne({_id: field_id});
         if(result.deletedCount == 0)
             return res.status(404).end();
