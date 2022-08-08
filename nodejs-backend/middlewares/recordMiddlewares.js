@@ -55,15 +55,18 @@ const update = [
     }
 ]
 
-const _delete = async (req, res, next) => {
-    const { record_id } = req.params;
-    try {
-        await RecordSchema.deleteOne({_id: record_id});
-        return res.status(201).end();
-    } catch (error) {
-        return next(error);
+const _delete = [
+    recordDocument,
+    async (req, res, next) => {
+        const record = req.record_doc;
+        try {
+            await record.remove();
+            return res.status(201).end();
+        } catch (error) {
+            return next(error);
+        }
     }
-}
+]
 
 module.exports = {
     recordDocument,
