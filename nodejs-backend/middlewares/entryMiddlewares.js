@@ -27,8 +27,8 @@ const create = async (req, res, next) => {
 const lists = async (req, res, next) => {
     const recordDoc = req.record_doc;
     try {
-        const records = await entries.EntrySchema.find({_record: recordDoc._id}).lean();
-        return res.json(records);
+        const entryLists = await entries.EntrySchema.find({_record: recordDoc._id}).lean();
+        return res.json(entryLists);
     } catch (error) {
         return next(error);
     }
