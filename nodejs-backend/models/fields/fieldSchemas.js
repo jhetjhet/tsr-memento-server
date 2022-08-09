@@ -23,6 +23,10 @@ const booleanSchema = new Schema({
         immutable: true,
         default: 'Boolean',
     },
+    default: {
+        type: Boolean,
+        default: true,
+    },
 });
 
 const dateSchema = new Schema({
