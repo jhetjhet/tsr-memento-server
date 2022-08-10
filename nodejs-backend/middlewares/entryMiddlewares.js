@@ -67,7 +67,6 @@ const update = async (req, res, next) => {
         
         return res.json(entryDoc).end();
     } catch (error) {
-        console.log(error)
         return next(error);
     }
 }
@@ -77,7 +76,6 @@ const _delete = async (req, res, next) => {
     const recordDoc = req.record_doc;
     try {
         const delRes = await entries.EntrySchema.deleteOne({_id: entry_id, _record: recordDoc._id});
-        console.log(delRes)
         if(delRes.deletedCount === 0)
             return delRes.status(404).end();
         
