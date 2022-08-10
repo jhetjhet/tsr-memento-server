@@ -59,9 +59,10 @@ const update = async (req, res, next) => {
         await recordDoc.populate('fields');
         const schemaStruct = utils.recordFieldsToEntrySchema(recordDoc.fields);
         const schema = new Schema(schemaStruct);
-        data = utils.cleanObj(data, Object.keys(schemaStruct));
-
-        await entries.validateByEntrySchema(schema, data, Object.keys(data));
+        const fieldKeys = Object.keys(schemaStruct);
+        
+        data = utils.cleanObj(data, fieldKeys);
+        await entries.validateByEntrySchema(schema, data, fieldKeys);
         
         const entryDoc = await entries.EntrySchema.findOneAndUpdate({_id: entry_id, _record: recordDoc._id}, data, {lean: true, strict: false, new: true})
         
