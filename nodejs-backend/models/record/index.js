@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const fieldsModel = require('../fields');
+const entryModel = require('../entries');
 
 const recordSchema = new Schema({
     to: {
@@ -24,6 +25,7 @@ recordSchema.pre('remove', {
 }, async function(next){
     try {
         await fieldsModel.FieldSchema.deleteMany({_id: {$in: this.fields}});
+        await entryModel.EntrySchema.deleteMany({_record: this._id});
     } catch (error) {
         next(error);
     }
