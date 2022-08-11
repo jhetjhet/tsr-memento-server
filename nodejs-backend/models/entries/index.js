@@ -2,9 +2,14 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const { v4 } = require('uuid');
 
-const VALIDATION_MODEL_NAME_PREFIX = 'valmod'
+const TEMP_MODEL_NAME_PREFIX = 'T_ENTRY_M'
 
 const entrySchema = new Schema({
+    _id: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        immutable: true,
+    },
     _record: {
         type: Schema.Types.ObjectId,
         ref: 'RecordSchema',
