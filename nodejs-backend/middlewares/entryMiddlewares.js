@@ -10,11 +10,11 @@ const create = async (req, res, next) => {
         const schemaStruct = utils.recordFieldsToEntrySchema(recordDoc.fields);
         const schema = new Schema(schemaStruct);
         data = utils.cleanObj(data, Object.keys(schemaStruct));
+        data._record = recordDoc._id;
 
         await entries.validateByEntrySchema(schema, data);
 
         const entryDoc = entries.EntrySchema(data, false);
-        entryDoc._record = recordDoc._id;
 
         await entryDoc.save();
         
