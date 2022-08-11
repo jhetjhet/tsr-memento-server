@@ -22,33 +22,32 @@ const entrySchema = new Schema({
 
 const EntrySchema = mongoose.model('EntrySchema', entrySchema);
 
-function validateByEntrySchema(schema, data, pathsToValidate=null){
-    if(!(schema instanceof Schema)){
-        throw new Error('Object is not an instance of Schema');
+class TemporaryEntryModel {
+    
+    constructor(schema, id=null){
+        this.validationModelName = `${TEMP_MODEL_NAME_PREFIX}-${id || v4()}`;
+        this.tempModel = EntrySchema.discriminator(this.validationModelName, schema);
+    }
+    
+    get model(){
+        return this.tempModel;
     }
 
-    const validationModelName = `${VALIDATION_MODEL_NAME_PREFIX}-${v4()}`;
-    // temporary model using specified schema for dynamic field validation
-    // Note: this method seems to be not optimize but currently this is the best way i think :)
-    const EntryValidationModel = EntrySchema.discriminator(validationModelName, schema);
+    clean(){
+        mongoose.connection.deleteModel(this.validationModelName);
+        delete EntrySchema.discriminators[this.validationModelName];
+    }
 
-    return new Promise(function(resoleve, reject){
-        async function vald(){
-            try {
-                await EntryValidationModel.validate(data, pathsToValidate);
-                resoleve(data);
-            } catch (error) {
-                reject(error);
-            } finally{
-                mongoose.deleteModel(validationModelName);
-            }
-        }
-
-        vald();
-    });
+    static cleanAll(){
+        const patt = new RegExp(`^${TEMP_MODEL_NAME_PREFIX}.+`, 'g');
+        mongoose.connection.deleteModel(patt);
+        Object.keys(EntrySchema.discriminators).forEach((k) => {
+            delete EntrySchema.discriminators[k];
+        });
+    }
 }
 
 module.exports = {
-    validateByEntrySchema,
     EntrySchema,
+    TemporaryEntryModel,
 }
