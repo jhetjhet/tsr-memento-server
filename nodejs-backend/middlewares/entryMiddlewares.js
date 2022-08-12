@@ -34,7 +34,6 @@ const lists = async (req, res, next) => {
     const recordDoc = req.record_doc;
     try {
         const entryLists = await entries.EntrySchema.find({_record: recordDoc._id}).lean();
-        console.log(mongoose.models)
         return res.json(entryLists);
     } catch (error) {
         return next(error);
@@ -71,7 +70,6 @@ const update = async (req, res, next) => {
         
         data = utils.cleanObj(data, fieldKeys);
 
-        console.log(entries.EntrySchema.discriminators)
         TempEntry = new entries.TemporaryEntryModel(schema, entry_id);
 
         const filterQuery = {_id: entry_id};
