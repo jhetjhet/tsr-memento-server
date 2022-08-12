@@ -13,6 +13,7 @@ const recordSchema = new Schema({
         type: String,
         required: true,
     },
+    description: String,
     fields: [{
         type: Schema.Types.ObjectId,
         ref: 'FieldSchema'
