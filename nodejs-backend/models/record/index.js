@@ -14,6 +14,7 @@ const recordSchema = new Schema({
         required: true,
     },
     description: String,
+    background: String,
     fields: [{
         type: Schema.Types.ObjectId,
         ref: 'FieldSchema'
