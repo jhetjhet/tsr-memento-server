@@ -70,14 +70,14 @@ const login = [
                     message: "Invalid username or password",
                 });
 
-            let accesToken = User.createAccessToken(user.createPayload());
+            let accessToken = User.createAccessToken(user.createPayload());
             let refreshToken = User.createRefreshToken(user.createPayload());
             const token = new Token({
                 token: refreshToken,
                 user_id: user._id,
             });
             await token.save();
-            res.json({accesToken, refreshToken});
+            res.json({accessToken, refreshToken});
         } catch (error) {
             return next(error);
         }
@@ -108,10 +108,10 @@ const refresh = [
             if(!refToken)
                 return res.status(401).end();
 
-            let accesToken = User.createAccessToken(user.createPayload());
+            let accessToken = User.createAccessToken(user.createPayload());
 
             return res.json({
-                accesToken,
+                accessToken,
             });
         });
     },
