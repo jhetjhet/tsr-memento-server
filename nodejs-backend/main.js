@@ -6,10 +6,13 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 const recordRoutes = require('./routes/recordRoutes');
+const authenticationRoutes = require('./routes/authenticationRoutes');
 const middlewares = require('./middlewares');
+const { authenticateMiddleware } = require('./middlewares/authentication');
 
 const apiRoute = express.Router();
 
+apiRoute.use(authenticateMiddleware);
 apiRoute.use(recordRoutes);
 
 app.use(cors()); // cors policy
@@ -17,6 +20,7 @@ app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(morgan('combined'));
 
+app.use(authenticationRoutes);
 app.use('/api/', apiRoute);
 app.use(middlewares.errorHandler);
 
