@@ -50,8 +50,8 @@ const register = [
 ];
 
 const login = [
-    body('username').notEmpty(),
-    body('password').notEmpty(),
+    body('username').notEmpty().withMessage('This field is required.'),
+    body('password').notEmpty().withMessage('This field is required.'),
     middlewares.validationError,
     async (req, res, next) => {
 
