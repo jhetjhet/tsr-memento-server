@@ -132,10 +132,26 @@ const logout = [
     },
 ];
 
+const verify = [
+    body('token').notEmpty().withMessage('This field is required'),
+    middlewares.validationError,
+    (req, res, next) => {
+
+        jwt.verify(req.body.token, process.env.SECRET_ACCESS_TOKEN, (err, payload) => {
+            if(err)
+                return next(err);
+            
+            return res.status(200).end();
+        });
+        
+    },
+];
+
 module.exports = {
     authenticateMiddleware,
     register,
     login,
     logout,
     refresh,
+    verify,
 }

@@ -6,5 +6,6 @@ router.post('/auth/register/', authenticationMiddlewares.register);
 router.post('/auth/login/', authenticationMiddlewares.login);
 router.post('/auth/logout/', authenticationMiddlewares.logout);
 router.post('/auth/refresh/', authenticationMiddlewares.refresh);
+router.post('/auth/verify/', authenticationMiddlewares.verify);
 
 module.exports = router;
