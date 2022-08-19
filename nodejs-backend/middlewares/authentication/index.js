@@ -87,7 +87,7 @@ const login = [
 const refresh = [
     body('token').notEmpty(),
     middlewares.validationError,
-    (req, res) => {
+    (req, res, next) => {
         let refreshToken = req.body.token;
 
         jwt.verify(refreshToken, process.env.SECRET_REFRESH_TOKEN, async (err, payload) => {
