@@ -43,6 +43,14 @@ userSchema.methods.createPayload = function(addData={}) {
     }
 }
 
+userSchema.methods.getCleanData = function() {
+
+    return {
+        id: this._id,
+        username: this.username,
+    }
+}
+
 userSchema.static('createAccessToken', function(payload) {
     return jwt.sign(payload, process.env.SECRET_ACCESS_TOKEN, {
         expiresIn: process.env.ACCESS_TOKEN_LIFE,
