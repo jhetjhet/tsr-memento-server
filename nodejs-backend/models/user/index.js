@@ -44,13 +44,13 @@ userSchema.methods.createPayload = function(addData={}) {
 
 userSchema.static('createAccessToken', function(payload) {
     return jwt.sign(payload, process.env.SECRET_ACCESS_TOKEN, {
-        expiresIn: '1m',
+        expiresIn: process.env.ACCESS_TOKEN_LIFE,
     });
 });
 
 userSchema.static('createRefreshToken', function(payload) {
     return jwt.sign(payload, process.env.SECRET_REFRESH_TOKEN, {
-        expiresIn: '15d',
+        expiresIn: process.env.REFRESH_TOKEN_LIFE,
     });
 });
 
