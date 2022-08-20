@@ -37,12 +37,35 @@ const authenticateMiddleware = [
 ];
 
 const register = [
+    body('username').custom(async (value, { req }) => {
+
+        if(!value)
+            throw new Error('This field is required');
+        
+        let user = await User.findByUsername(value);
+
+        if(user)
+            throw new Error('User with this username already exists.');
+
+        return true;
+    }),
+    body('password').notEmpty().withMessage('This field is required.').isLength({ min: 6 }).withMessage('The password must be at least 6 character long.'),
+    body('re_password').custom((value, { req }) => {
+
+        if(!value)
+            throw new Error('This field is required');
+
+        if(value !== req.body.password)
+            throw new Error('Password confirmation does not match password');
+
+        return true;
+    }),
+    middlewares.validationError,
     async (req, res, next) => {
         try {
             const user = new User(req.body);
             await user.save();
-            
-            res.json(user);
+            return res.end();
         } catch (error) {
             return next(error);
         }
