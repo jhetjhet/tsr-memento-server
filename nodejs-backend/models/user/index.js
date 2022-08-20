@@ -48,6 +48,7 @@ userSchema.methods.getCleanData = function() {
     return {
         id: this._id,
         username: this.username,
+        background: this.background,
     }
 }
 
