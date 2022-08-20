@@ -12,6 +12,7 @@ const { authenticateMiddleware } = require('./middlewares/authentication');
 
 const apiRoute = express.Router();
 
+app.options('*', cors()) // include before other routes
 apiRoute.use(authenticateMiddleware);
 apiRoute.use(recordRoutes);
 
