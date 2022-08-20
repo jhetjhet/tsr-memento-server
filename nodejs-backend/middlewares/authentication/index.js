@@ -170,6 +170,13 @@ const verify = [
     },
 ];
 
+const retrieve = [
+    authenticateMiddleware,
+    (req, res) => {
+        return res.json(req.user.getCleanData());
+    },
+];
+
 module.exports = {
     authenticateMiddleware,
     register,
@@ -177,4 +184,5 @@ module.exports = {
     logout,
     refresh,
     verify,
+    retrieve,
 }
