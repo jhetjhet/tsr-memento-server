@@ -11,9 +11,7 @@ const middlewares = require('./middlewares');
 const { authenticateMiddleware } = require('./middlewares/authentication');
 
 app.options('*', cors()) // include before other routes
-app.use(cors({
-    origin: 'http://tsr-memento-react.s3-website-ap-southeast-1.amazonaws.com',
-})); // cors policy
+app.use(cors()); // cors policy
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(morgan('combined'));
