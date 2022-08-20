@@ -4,11 +4,11 @@ const fieldsModel = require('../fields');
 const entryModel = require('../entries');
 
 const recordSchema = new Schema({
-    to: {
-        type: String,
+    to: { // owner of this record (User model)
+        type: Schema.Types.ObjectId,
         required: true,
         immutable: true,
-    }, // django id (uuidv4)
+    },
     name: {
         type: String,
         required: true,
