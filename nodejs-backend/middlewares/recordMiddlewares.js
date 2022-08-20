@@ -31,7 +31,10 @@ const create = async (req, res, next) => {
 
 const lists = async (req, res, next) => {
     try {
-        const records = await RecordSchema.find().lean();
+        let user = req.user;
+        const records = await RecordSchema.find({
+            to: user._id,
+        }).lean();
         return res.json(records);
     } catch (error) {
         return next(error);
