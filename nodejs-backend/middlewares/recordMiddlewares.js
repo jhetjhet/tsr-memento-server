@@ -17,7 +17,11 @@ const recordDocument = async (req, res, next) => {
 
 const create = async (req, res, next) => {
     try {
-        const record = RecordSchema(req.body);
+        let user = req.user;
+        let recData = req.body;
+        // override 'to' field and set to logged in user
+        recData.to = user._id;
+        const record = RecordSchema(recData);
         await record.save();
         return res.json(record);
     } catch (error) {
