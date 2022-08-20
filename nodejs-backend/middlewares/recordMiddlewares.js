@@ -3,7 +3,11 @@ const RecordSchema = require('../models/record');
 const recordDocument = async (req, res, next) => {
     const { record_id } = req.params;
     try {
-        const record = await RecordSchema.findById(record_id);
+        let user = req.user;
+        const record = await RecordSchema.findOne({
+            _id: record_id,
+            to: user._id,
+        });
         if(record){
             req.record_doc = record;
             return next();
