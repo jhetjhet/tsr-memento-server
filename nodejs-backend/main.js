@@ -10,16 +10,15 @@ const authenticationRoutes = require('./routes/authenticationRoutes');
 const middlewares = require('./middlewares');
 const { authenticateMiddleware } = require('./middlewares/authentication');
 
-const apiRoute = express.Router();
-
 app.options('*', cors()) // include before other routes
-apiRoute.use(authenticateMiddleware);
-apiRoute.use(recordRoutes);
-
 app.use(cors()); // cors policy
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(morgan('combined'));
+
+const apiRoute = express.Router();
+apiRoute.use(authenticateMiddleware);
+apiRoute.use(recordRoutes);
 
 app.use(authenticationRoutes);
 app.use('/api/', apiRoute);
